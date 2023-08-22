@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+{% block title%} Delete Page {%endblock%}
+
+{% block content%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 offset-md-3">
+            <div class="border bg-white p-3">
+            <h3>Delete Product</h3>
+            <hr>
+            <div class="alert alert-danger">
+                <h3>Are you sure you want to delete?</h3>
+            </div>
+            <form action="" method="post">
+                {%csrf_token%}
+                {{form}}
+                <a href="{%url 'product'%}" class="btn btn-success">cancel</a>
+                <input type="submit" class="btn btn-danger" value="confirm">
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{%endblock%}
