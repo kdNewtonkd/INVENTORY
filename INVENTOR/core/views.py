@@ -34,12 +34,33 @@ def order(request):
 
 
 def delete_product(request,pk):
-    item=Product.objects.get(pk)
-    #item=Product.objects.raw('SELECT * FROM core_product WHERE id = pk')
+    item=Product.objects.get(pk=pk)
+   
     if request.method=='POST':
         item.delete()
         return redirect('product')
-    return(request,'dashbaord/delete.html')
+    return render(request,'dashbaord/delete.html')
 
-
-
+#chagpt
+#def delete_product(request, pk):
+   # item = Product.objects.get(pk=pk)  # Correction : spécifier pk=pk
+   
+    #if request.method == 'POST':
+       # item.delete()
+       # return redirect('product')
+    #return render(request, 'dashbaord/delete.html')  # Correction : utiliser la fonction render
+ #item=Product.objects.raw('SELECT * FROM core_product WHERE id = pk')
+def update_product(request, pk):
+    item = Product.objects.get(pk=pk)
+    if request.method=='POST':
+        form=ProductForm(request.POST,instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('product')
+    else:
+        form=ProductForm(instance=item)    
+    context={
+        
+        'form':form
+    }
+    return render(request,'dashbaord/update.html',context)
